@@ -1,0 +1,53 @@
+\documentclass{article}
+
+
+%%% Packages
+
+% AMS mathematics
+\usepackage{amsmath,amsthm,amssymb}
+
+% Make in-document references clickable
+\usepackage{hyperref}
+
+% Custom package for the \anchor symbol used to denote ``independence'' in model theory
+\usepackage{anchor}
+
+
+%%% Theorem environments
+
+\newtheorem{theorem}{Theorem}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+
+%%% Custom commands
+
+\newcommand{\defterm}{\emph}
+
+
+%%% Header material
+
+\title{Stability in Hyperimaginary Sorts}
+\author{Mike Haskel}
+\date{Spring 2017}
+
+
+%%% Content
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  In this paper, we develop basic notions of local stability theory in hyperimaginary sorts.
+\end{abstract}
+
+\section{Hyperimaginaries}
+
+Throughout this paper, let $T$ be a first-order $L$-theory, not necessarily complete. Definable and type-definable sets will be over $\emptyset$ unless otherwise specified. Letters $X$, $Y$, etc.\ will denote type-definable sets of infinite tuples; $x$, $y$, etc.\ will denote tuples of variables in sorts $X$, $Y$, etc.; $\varphi(x,y)$, etc.\ will denote relatively definable subsets of $X \times Y$, etc.; $\Phi(x,y)$, etc.\ will denote type-definable subsets of $X \times Y$, etc.
+
+\begin{definition}
+  Given $X$, let $x_1 E x_2$ be a type-definable subset of $X \times X$. Say $X$ is an \defterm{equivalence relation} if in every model of $T$ it is interpreted as an equivalence relation. A \defterm{hyperimaginary sort} is given by the pair $(X,E)$ and written $X/E$. Its interpretation in a model $M$ of $T$, written $X/E(M)$, is the quotient set $X(M)/E(M)$.
+\end{definition}
+
+\end{document}

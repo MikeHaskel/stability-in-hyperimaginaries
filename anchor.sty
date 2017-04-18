@@ -1,0 +1,31 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{anchor}[2017/04/18 Anchor Symbol]
+
+\RequirePackage{amsmath}
+
+\ProcessOptions\relax
+
+\newcommand{\anchor}[1][]{%
+  \mathrel{
+    \mathop{
+      \vcenter{
+        \hbox{\oalign{\noalign{\kern-.3ex}\hfil$\vert$\hfil\cr
+              \noalign{\kern-.7ex}
+              $\smile$\cr\noalign{\kern-.3ex}}}
+      }
+    }\displaylimits_{#1}
+  }
+}
+
+\def\Ind{\setbox0=\hbox{$x$}\kern\wd0\hbox to 0pt{\hss$\mid$\hss}
+\lower.9\ht0\hbox to 0pt{\hss$\smile$\hss}\kern\wd0}
+
+\def\Notind{\setbox0=\hbox{$x$}\kern\wd0\hbox to 0pt{\mathchardef
+\nn=12854\hss$\nn$\kern1.4\wd0\hss}\hbox to
+0pt{\hss$\mid$\hss}\lower.9\ht0 \hbox to 0pt{\hss$\smile$\hss}\kern\wd0}
+
+\def\ind{\mathop{\mathpalette\Ind{}}}
+
+\def\nind{\mathop{\mathpalette\Notind{}}}
+
+\endinput
