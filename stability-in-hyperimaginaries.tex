@@ -3,7 +3,7 @@
 
 %%% Packages
 
-% AMS mathematics
+% General mathematics
 \usepackage{amsmath,amsthm,amssymb}
 
 % Make in-document references clickable
@@ -30,6 +30,8 @@
 %%% Math symbols
 
 \newcommand{\B}{\mathcal{B}}
+
+\newcommand{\ZZ}{\mathbb{Z}}
 
 \DeclareMathOperator{\tp}{tp}
 
@@ -120,6 +122,74 @@ Note that, by the reflexivity of $E$, $\varphi_{n+1} \rightarrow \varphi_n$ for 
   (\ref{enumlabel:functor-induces-site-structure}.) Let $\Gamma(x)$ and $\Delta(x)$ be type-definable subsets of $X/E$, and assume that $\Delta \not\rightarrow \Gamma$. That is, there is $\gamma(x) \in \Gamma$ such that $\Delta \not\rightarrow \gamma$. Set $\gamma_0 = \gamma$. Assume we've found $\gamma_n(x) \in \Gamma$. Since we know $\Gamma(x_1) \wedge x_1 E x_2 \rightarrow \gamma_n(x_2)$, find $\gamma_{n+1}(x) \in \Gamma(x)$ such that $\gamma_{n+1}(x_1) \wedge x_1 E x_2 \rightarrow \gamma_n(x_2)$ by compactness. We then have a closed family $(\gamma_n)$ such that $\Gamma \rightarrow \bigwedge \gamma_n$. However, $\Delta \not\rightarrow \bigwedge \gamma_n$, since $\Delta \not\rightarrow \gamma_0$. We therefore have the required property.
 \end{proof}
 
-Note that, despite Proposition~\ref{proposition:closed-families-form-basis}, $(\varphi_n) \leq (\psi_n)$ is in general properly stronger that $\bigwedge \varphi_n \rightarrow \bigwedge \psi_n$, since inequality in $\B$ requires implication levelwise.
+Note that, despite Proposition~\ref{proposition:closed-families-form-basis}, $(\varphi_n) \leq (\psi_n)$ is in general properly stronger than $\bigwedge \varphi_n \rightarrow \bigwedge \psi_n$, since inequality in $\B$ requires implication levelwise.
+
+\section{Stability}
+
+\begin{definition}
+  Given $X$ and $Y$, let
+  \begin{equation*}
+    \cdots
+    \begin{matrix}
+      a_{-3} & & a_{-1} & & a_1 & & a_3 \\
+      & b_{-2} & & b_0 & & b_2 &
+    \end{matrix}
+    \cdots
+  \end{equation*}
+  be a sequence in some model $M$ with $a_i \in X(M)$ and $b_i \in Y(M)$. Say the sequence is \defterm{indiscernible} if the type of any finite tuple of $a_i$'s and $b_j$'s depends only on the order type and parities of the indices.
+\end{definition}
+
+\begin{definition}
+  Let $X/E$ be a hyperimaginary sort. Say $X/E$ is \defterm{stable} if, whenever
+  \begin{equation*}
+    \cdots
+    \begin{matrix}
+      a_{-3} & & a_{-1} & & a_1 & & a_3 \\
+      & b_{-2} & & b_0 & & b_2 &
+    \end{matrix}
+    \cdots
+  \end{equation*}
+  is indiscernible with $a_i \in X$ and $b_i \in Y$, in any model and for any $Y$, we have $\tp([a_{-1}],b_0) = \tp([a_1],b_0)$.
+\end{definition}
+
+\begin{definition}
+  Let $X$ and $Y$ be arbitrary, and let $(\varphi_n(x,y))$ be a family of formulas with $\varphi_{n+1} \rightarrow \varphi_n$. (Recall that every closed family, for every equivalence relation, has this property.) Say $(\varphi_n)$ is \defterm{stable} if, whenever
+  \begin{equation*}
+    \cdots
+    \begin{matrix}
+      a_{-3} & & a_{-1} & & a_1 & & a_3 \\
+      & b_{-2} & & b_0 & & b_2 &
+    \end{matrix}
+    \cdots
+  \end{equation*}
+  is indiscernible with $a_i \in X$ and $b_i \in Y$, in any model, with $\varphi_{n+1}(a_1,b_0)$, we have $\varphi_n(a_{-1},b_0)$.
+\end{definition}
+
+\begin{theorem}
+  Let $X/E$ be a hyperimaginary sort. Then $X/E$ is stable if and only if every closed family $(\varphi_n(x,y))$ is stable (as $Y$ varies).
+\end{theorem}
+\begin{proof}
+  ($\Rightarrow$) Assume $X/E$ is stable, and let $(\varphi_n(x,y))$ be a closed family. We want to show $(\varphi_n)$ is stable. Let
+  \begin{equation*}
+    \cdots
+    \begin{matrix}
+      a_{-3} & & a_{-1} & & a_1 & & a_3 \\
+      & b_{-2} & & b_0 & & b_2 &
+    \end{matrix}
+    \cdots
+  \end{equation*}
+  be indiscernible, with $a_i \in X$ and $b_i \in Y$, and assume $\varphi_{n+1}(a_1,b_0)$. Since $(\varphi_n)$ is a closed family, we know that $\varphi_n(a,b_0)$ for all $a \in [a_1]$, and therefore that $\varphi_n \in \tp([a_1],b_0) = \tp([a_{-1}],b_0)$. So $\varphi_n(a_{-1},b_0)$, as desired.
+
+  ($\Leftarrow$) Assume $(\varphi_n(x,y))$ is stable for all closed families $(\varphi_n)$. We want to show $X/E$ is stable. Let
+  \begin{equation*}
+    \cdots
+    \begin{matrix}
+      a_{-3} & & a_{-1} & & a_1 & & a_3 \\
+      & b_{-2} & & b_0 & & b_2 &
+    \end{matrix}
+    \cdots
+  \end{equation*}
+  be indiscernible, with $a_i \in X$ and $b_i \in Y$. Let $p^+ := \tp([a_1],b_0)$ and $p^- := \tp([a_{-1}],b_0)$. We want to show $p^+ = p^-$. By symmetry, it is sufficient to show $p^- \rightarrow p^+$. By Proposition~\ref{proposition:closed-families-form-basis}, it is sufficient to show that, whenever $(\varphi_n(x,y))$ is a closed family such that $p^+ \rightarrow \bigwedge \varphi_n$, we furthermore have $p^- \rightarrow \bigwedge \varphi_n$. Let $(\varphi_n(x,y))$ be such a closed family. For $n$ arbitary, we want to show $p^- \rightarrow \varphi_n$. That is, we want to show that, for all $a \in [a_{-1}]$, $\varphi_n(a,b_0)$. Since $(\varphi_n)$ is a closed family, it suffices to show $\varphi_{n+1}(a_{-1},b_0)$. Since $(\varphi_n)$ is stable, it suffices to show $\varphi_{n+2}(a_1,b_0)$, which holds since $p^+ \rightarrow \bigwedge \varphi_n$.
+\end{proof}
 
 \end{document}
