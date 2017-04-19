@@ -16,6 +16,7 @@
 %%% Theorem environments
 
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -24,6 +25,13 @@
 %%% Custom commands
 
 \newcommand{\defterm}{\emph}
+
+
+%%% Math symbols
+
+\newcommand{\B}{\mathcal{B}}
+
+\DeclareMathOperator{\tp}{tp}
 
 
 %%% Header material
@@ -47,7 +55,71 @@
 Throughout this paper, let $T$ be a first-order $L$-theory, not necessarily complete. Definable and type-definable sets will be over $\emptyset$ unless otherwise specified. Letters $X$, $Y$, etc.\ will denote type-definable sets of infinite tuples; $x$, $y$, etc.\ will denote tuples of variables in sorts $X$, $Y$, etc.; $\varphi(x,y)$, etc.\ will denote relatively definable subsets of $X \times Y$, etc.; $\Phi(x,y)$, etc.\ will denote type-definable subsets of $X \times Y$, etc.
 
 \begin{definition}
-  Given $X$, let $x_1 E x_2$ be a type-definable subset of $X \times X$. Say $X$ is an \defterm{equivalence relation} if in every model of $T$ it is interpreted as an equivalence relation. A \defterm{hyperimaginary sort} is given by the pair $(X,E)$ and written $X/E$. Its interpretation in a model $M$ of $T$, written $X/E(M)$, is the quotient set $X(M)/E(M)$.
+  Given $X$, let $x_1 E x_2$ be a type-definable subset of $X \times X$. Say $E$ is an \defterm{equivalence relation} if in every model of $T$ it is interpreted as an equivalence relation. A \defterm{hyperimaginary sort} is given by the pair $(X,E)$ and written $X/E$. Its interpretation in a model $M$ of $T$, written $X/E(M)$, is the quotient set $X(M)/E(M)$.
 \end{definition}
+
+Note that type-definable sets $X$ are themselves hyperimaginary sorts, as are (possibly infinitary) products of hyperimaginary sorts.
+
+\begin{definition}\label{definition:type-basics}
+  Let $X/E$ be a hyperimaginary sort. A \defterm{type-definable subset} of $X/E$ is a type definable subset $\Gamma(x)$ of $X$ with the additional property that
+  \begin{equation*}
+    \Gamma(x_1) \wedge x_1 E x_2 \rightarrow \Gamma(x_2)
+  \end{equation*}
+  Note that $\Gamma(x)$ induces a set of realizations $\Gamma(M) \subseteq X/E(M)$ in every model.
+
+  A \defterm{complete type} in $X/E$ is a consistent type-definable subset $p(x)$ of $X/E$ that cannot be written as the union of two type-definable subsets of $X/E$ properly contained in $p(x)$. (That is, if there are no $p_1(x)$ and $p_2(x)$ type-definable subsets of $X/E$ such that $p = p_1 \vee p_2$ in every model and the inclusions $p_i \rightarrow p$ are each proper in some model.)
+
+  The \defterm{type space} $S_{X/E}$ is the compact Hausdorff space whose points are complete types and whose closed sets are type-definable subsets. Note that it is a quotient of $S_X$ whose topology is the quotient topology. If $[a]$ is an $E$-class in some model $M$, the \defterm{type of $[a]$}, $\tp([a])$, is the complete type given by the formulas true of everything in the class $[a]$. This coheres with taking the image of $\tp(a)$ under the quotient map.
+
+  Given a set $A$ of parameters in some model, let $\overline{a} \in Y$ enumerate $A$. Define $S_{X/E}(A)$ to be the fiber of $\tp(\overline{a})$ under the projection map $S_{X/E \times Y} \to S_Y$.
+\end{definition}
+
+Definition~\ref{definition:type-basics} contains many implicit claims, the verification of which we leave to the reader as a routine exercise.
+
+\begin{definition}
+  Let $X/E$ be a hyperimaginary sort. A \defterm{closed family} for $X/E$ is a sequence of formulas $(\varphi_n(x))_{n < \omega}$ such that for all $n$
+  \begin{equation*}
+    \varphi_{n+1}(x_1) \wedge x_1 E x_2 \rightarrow \varphi_n(x_2)
+  \end{equation*}
+  Given closed families $(\varphi_n(x))$ and $(\psi_n(x))$, write $(\varphi_n) \leq (\psi_n)$ if $\varphi_n(x) \rightarrow \psi_n(x)$ for all $n$. We sometimes write $\B$ for the poset of closed families.
+\end{definition}
+
+Note that, by the reflexivity of $E$, $\varphi_{n+1} \rightarrow \varphi_n$ for all $n$ in every closed family $(\varphi_n)$.
+
+\begin{proposition}\label{proposition:closed-families-form-basis}
+  The poset $\B$ of closed families forms a basis for the topology on $S_{X/E}$ in the following sense:
+  \begin{enumerate}
+  \item\label{enumlabel:functor-on-objects} A closed family $(\varphi_n(x))$ determines a type-definable set $\bigwedge \varphi_n(x)$ of $X/E$.
+  \item\label{enumlabel:functor-on-inequalities} If $(\varphi_n) \leq (\psi_n)$, then $\bigwedge \varphi_n \rightarrow \bigwedge \psi_n$.
+  \item\label{enumlabel:functor-preserves-finite-joins} $\B$ has finite joins given by $(\varphi_n) \vee (\psi_n) = (\varphi_n \vee \psi_n)$, and these finite joins are preserved by the mapping into type-definable sets of $X/E$.
+  \item\label{enumlabel:functor-induces-site-structure} Let $\Gamma(x)$ and $\Delta(x)$ be type-definable subsets of $X/E$. If, for every closed family $(\varphi_n(x))$ such that $\Gamma \rightarrow \bigwedge \varphi_n$ we furthermore have $\Delta \rightarrow \bigwedge \varphi_n$, then $\Delta \rightarrow \Gamma$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  (\ref{enumlabel:functor-on-objects}.) Given a closed family $(\varphi_n(x))$, we must verify that $\Phi(x) := \bigwedge \varphi_n(x)$ satisfies
+  \begin{equation*}
+    \Phi(x_1) \wedge x_1 E x_2 \rightarrow \Phi(x_2)
+  \end{equation*}
+  It is sufficient to check that, for all $n$, $\Phi(x_1) \wedge x_1 E x_2 \rightarrow \varphi_n(x_2)$, which in turn follows from $\varphi_{n+1}(x_1) \wedge x_1 E x_2 \rightarrow \varphi_n(x_2)$. We then obtain the desired result from the definition of a closed family.
+
+  (\ref{enumlabel:functor-on-inequalities}.) Assume $(\varphi_n) \leq (\psi_n)$, i.e.\ $\varphi_n \rightarrow \psi_n$ for all $n$. To check $\bigwedge \varphi_n \rightarrow \bigwedge \psi_n$, it is sufficient to check $\bigwedge \varphi_i \rightarrow \psi_n$ for all $n$, which in turn follows from $\varphi_n \rightarrow \psi_n$.
+
+  (\ref{enumlabel:functor-preserves-finite-joins}.) Since inequality in $\B$ is computed levelwise, $(\varphi_n) \vee (\psi_n)$ is computed levelwise as $(\varphi_n \vee \psi_n)$ also, provided $(\varphi_n \vee \psi_n)$ is a closed family. To that end, it is sufficient to verify that $(\varphi_{n+1} \vee \psi_{n+1}) \wedge x_1 E x_2 \rightarrow \varphi_n \wedge \psi_n$ for all $n$, which follows from basic propositional calculus and the fact that $(\varphi_n)$ and $(\psi_n)$ are themselves closed families.
+
+  To verify that finite joins are preserved by converting closed families into type-definable sets, we must verify that
+  \begin{equation*}
+    \left(\bigwedge_n \varphi_n\right) \vee \left(\bigwedge_m \psi_m\right) = \bigwedge_k (\varphi_k \vee \psi_k)
+  \end{equation*}
+  Inclusion left to right is immediate. To verify inclusion right to left, observe that
+  \begin{equation*}
+    \left(\bigwedge_n \varphi_n\right) \vee \left(\bigwedge_m \psi_m\right) = \bigwedge_{n,m} (\varphi_n \vee \psi_m)
+  \end{equation*}
+  We obtain the required inclusion by observing that, since $i \geq j$ implies $\varphi_i \leq \varphi_j$ in every closed family, we have $\varphi_k \vee \psi_k \rightarrow \varphi_n \vee \psi_m$ when we set $k = \max(n,m)$.
+
+  (\ref{enumlabel:functor-induces-site-structure}.) Let $\Gamma(x)$ and $\Delta(x)$ be type-definable subsets of $X/E$, and assume that $\Delta \not\rightarrow \Gamma$. That is, there is $\gamma(x) \in \Gamma$ such that $\Delta \not\rightarrow \gamma$. Set $\gamma_0 = \gamma$. Assume we've found $\gamma_n(x) \in \Gamma$. Since we know $\Gamma(x_1) \wedge x_1 E x_2 \rightarrow \gamma_n(x_2)$, find $\gamma_{n+1}(x) \in \Gamma(x)$ such that $\gamma_{n+1}(x_1) \wedge x_1 E x_2 \rightarrow \gamma_n(x_2)$ by compactness. We then have a closed family $(\gamma_n)$ such that $\Gamma \rightarrow \bigwedge \gamma_n$. However, $\Delta \not\rightarrow \bigwedge \gamma_n$, since $\Delta \not\rightarrow \gamma_0$. We therefore have the required property.
+\end{proof}
+
+Note that, despite Proposition~\ref{proposition:closed-families-form-basis}, $(\varphi_n) \leq (\psi_n)$ is in general properly stronger that $\bigwedge \varphi_n \rightarrow \bigwedge \psi_n$, since inequality in $\B$ requires implication levelwise.
 
 \end{document}
